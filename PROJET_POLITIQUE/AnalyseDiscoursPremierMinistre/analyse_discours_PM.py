@@ -35,7 +35,6 @@ class AnalyseDiscours:
             #  basiques
             'a', 'cet', 'cette', 'ces', 'j', 'ai', 'c', 'est', 'd', 'qu', 
             'n', 's', 'on', 'm', 't', 'l', 'y', 'voir', 'ça', 'etc',
-            # formules de politesse
             'monsieur', 'madame', 'mesdames', 'messieurs', 'chers', 'collègues',
             # termes politiques
             'assemblée', 'sénat', 'parlement', 'parlementaire', 'parlementaires',
@@ -62,7 +61,6 @@ class AnalyseDiscours:
                     with open(chemin, 'r', encoding='utf-8') as f:
                         texte = f.read()
                 except:
-                    # si utf-8 marche pas
                     try:
                         with open(chemin, 'r', encoding='latin-1') as f:
                             texte = f.read()
@@ -150,17 +148,13 @@ class AnalyseDiscours:
         if not os.path.exists('resultats'):
             os.makedirs('resultats')
         
-        # choix de la couleur
+        # choisir pr la couleur
         if couleur == "blue":
             colormap = "Blues"
         elif couleur == "red":
             colormap = "Reds"
         elif couleur == "green":
             colormap = "Greens"
-        elif couleur == "political":
-            # bleu-blanc-rouge
-            colors = [(0, 0, 1), (1, 1, 1), (1, 0, 0)]
-            colormap = LinearSegmentedColormap.from_list("french_flag", colors, N=100)
         else:
             colormap = "Blues"  # par défaut
             
@@ -518,7 +512,7 @@ class AnalyseDiscours:
             ax.plot(angles, values, linewidth=2, label=locuteur, color=colors[i])
             ax.fill(angles, values, alpha=0.1, color=colors[i])
 
-# si exécuté comme script principal
+# script principal
 if __name__ == "__main__":
     analyseur = AnalyseDiscours()
     analyseur.charger_discours()
@@ -532,7 +526,7 @@ if __name__ == "__main__":
     for i, nom in enumerate(sorted(analyseur.discours.keys()), 1):
         print(f"{i}. {nom}")
     
-    # menu interractif
+    # menu "interractif"
     while True:
         print("\n=== Menu d'analyse ===")
         print("1. Analyser la fréquence des mots")
